@@ -22,7 +22,7 @@ services:
       DATABASE: ${DATABASE}
       DB_PORT: ${DB_PORT}
     ports:
-      - "3000:3000"
+      - "4001:3000"
     env_file:
       - .env
     depends_on:
