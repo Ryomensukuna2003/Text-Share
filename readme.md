@@ -2,7 +2,8 @@
 
 Website for text/code sharing.
 
-![Screenshot from 2025-04-08 10-30-56](https://github.com/user-attachments/assets/c0c9b0c8-0428-403c-9f6f-4a4ccdf6cb79)
+![Screenshot from 2025-04-09 22-14-16](https://github.com/user-attachments/assets/93a6b67b-ed35-4e1c-b571-2ed175b5cec2)
+
 
 ## Introduction
 
@@ -108,6 +109,6 @@ Open your web browser and navigate to `http://localhost:5173`.
 - [x] Dark Mode is not working
 - [x] Dockerize the backend
 - [x] GCP Deployment
-- [ ] Frontend finishing
-- [ ] Responsive Design
+- [x] Frontend finishing
+- [x] Responsive Design
 - [x] Moj masti
