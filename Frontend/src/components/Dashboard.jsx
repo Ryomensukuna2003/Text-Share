@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,8 +6,10 @@ import { toast } from "sonner";
 import QRCode from "react-qr-code";
 import { useStore } from "@/store/store";
 import { generateContext, fetchCustomData } from "@/lib/functions";
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { docco, dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
+import { brutalistLight, brutalistDark } from "@/lib/editor-theme";
+import { getLanguageExtension } from "@/lib/editor-langs";
 import LangSelector from "@/components/langSelector";
 import { Copy, Check, Menu, X } from "lucide-react";
 import AnimatedWordCycle from "@/components/ui/animated-text-cycle";
@@ -63,17 +65,37 @@ const Dashboard = () => {
     }, 2000);
   };
 
-  // For scrolling the textarea and the syntax highlighter at same time
-  const highlightRef = useRef();
-  const inputRef = useRef();
-  const syncScroll = () => {
-    highlightRef.current.scrollTop = inputRef.current.scrollTop;
-    highlightRef.current.scrollLeft = inputRef.current.scrollLeft;
-  };
-
   const toggleControls = () => {
     setShowControls(!showControls);
   };
+
+  const editorExtensions = useMemo(
+    () => [
+      getLanguageExtension(language),
+      EditorView.lineWrapping,
+      EditorView.theme({
+        "&": { height: "100%" },
+        ".cm-scroller": { fontFamily: "Necto, monospace" },
+        ".cm-gutters": {
+          borderRight: "2px solid var(--border)",
+          backgroundColor: "var(--card)",
+        },
+        ".cm-activeLineGutter": {
+          backgroundColor: "transparent",
+          fontWeight: "700",
+        },
+        ".cm-lineNumbers .cm-gutterElement": {
+          padding: "0 12px 0 8px",
+          minWidth: "2.5em",
+          textAlign: "right",
+          letterSpacing: "0.05em",
+        },
+        ".cm-content": { padding: "12px 0" },
+        ".cm-line": { padding: "0 12px" },
+      }),
+    ],
+    [language]
+  );
 
   return (
     <div className="flex flex-col md:flex-row h-full">
@@ -233,40 +255,27 @@ const Dashboard = () => {
           </div>
           <LangSelector language={language} setLanguage={setLanguage} />
         </div>
-        <div className="relative w-full h-[calc(100vh-10rem)]">
-          {!content && (
-            <div className="absolute inset-0 p-4 md:p-6 pointer-events-none font-mono text-muted-foreground/40 uppercase tracking-wider text-xs md:text-sm leading-relaxed select-none">
-              {"// paste your code here"}
-              <br />
-              {"// then hit CREATE to get a share id"}
-            </div>
-          )}
-          <div
-            ref={highlightRef}
-            className="absolute inset-0 p-2 overflow-auto pointer-events-none whitespace-pre-wrap break-words rounded-none"
-          >
-            <SyntaxHighlighter
-              language={language}
-              style={theme === "light" ? docco : dracula}
-              wrapLongLines={true}
-              customStyle={{
-                margin: 0,
-                background: "transparent",
-                padding: 0,
-                height: "calc(100vh-10rem)",
-              }}
-            >
-              {content || " "}
-            </SyntaxHighlighter>
-          </div>
-
-          <textarea
-            ref={inputRef}
+        <div className="w-full h-[calc(100vh-10rem)] overflow-hidden bg-background">
+          <CodeMirror
             value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onScroll={syncScroll}
-            className="absolute inset-0 p-2 bg-transparent text-transparent caret-foreground resize-none overflow-auto z-10 outline-none font-mono"
-            spellCheck={false}
+            onChange={(value) => setContent(value)}
+            theme={theme === "light" ? brutalistLight : brutalistDark}
+            extensions={editorExtensions}
+            height="100%"
+            style={{ height: "100%", fontSize: "14px" }}
+            placeholder={"// paste your code here\n// then hit CREATE to get a share id"}
+            basicSetup={{
+              lineNumbers: true,
+              foldGutter: true,
+              highlightActiveLine: true,
+              highlightActiveLineGutter: true,
+              bracketMatching: true,
+              closeBrackets: true,
+              indentOnInput: true,
+              autocompletion: false,
+              searchKeymap: true,
+              tabSize: 2,
+            }}
           />
         </div>
       </div>
