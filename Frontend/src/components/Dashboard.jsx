@@ -180,9 +180,11 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="mt-auto flex justify-start items-end px-4 md:px-6 py-4 md:py-6 border-b-2 border-border h-28 md:h-32 overflow-hidden">
-            <h1 className="text-2xl md:text-3xl font-light text-left text-muted-foreground leading-none whitespace-nowrap">
-              Share your{" "}
+          <div className="mt-auto flex flex-col justify-end items-start gap-1 px-4 md:px-6 py-4 md:py-6 border-b-2 border-border overflow-hidden">
+            <div className="text-xl md:text-2xl font-light text-muted-foreground leading-none">
+              Share your
+            </div>
+            <div className="font-bold leading-none whitespace-nowrap">
               <AnimatedWordCycle
                 words={[
                   "snippets",
@@ -195,9 +197,9 @@ const Dashboard = () => {
                   "templates",
                 ]}
                 interval={3000}
-                className={"text-foreground font-bold text-3xl md:text-4xl"}
+                className={"text-foreground text-3xl md:text-4xl"}
               />
-            </h1>
+            </div>
           </div>
           <div className="grid grid-cols-2 w-full mt-auto border-t-2 border-border">
             <Button
