@@ -20,45 +20,43 @@ const Navbar = () => {
 
   return (
     <header className="border-b-2 border-border bg-card">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3 px-4 py-4">
-          <div className="flex items-center justify-center size-9 bg-foreground text-background border-2 border-border">
+      <div className="flex items-stretch justify-between min-h-14 md:min-h-16">
+        <div className="flex items-center gap-3 px-4">
+          <div className="flex items-center justify-center size-8 bg-foreground text-background">
             <Code2 className="h-5 w-5" />
           </div>
           <div className="flex flex-col leading-tight">
-            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
+            <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground uppercase">
               CodeShare
             </h1>
-            <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
-              ▸ TEXT / CODE / SNIPPETS
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold hidden md:block">
+              TEXT / CODE / SNIPPETS
             </span>
           </div>
         </div>
-        <div className="flex items-center">
-          <div className="h-full flex items-center">
-            {shareID && (
-              <div className="flex items-stretch border-l-2 border-border">
-                <div className="flex items-center gap-2 px-4 py-4 bg-[var(--accent-shock)] text-black border-r-2 border-border">
-                  <span className="inline-block size-2 bg-black" />
-                  <span className="text-xs font-bold uppercase tracking-widest">
-                    ID / {shareID}
-                  </span>
-                </div>
-                <Button
-                  onClick={copyLink}
-                  className="h-full px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-r-2 border-border"
-                  title="Copy shareable link"
-                >
-                  {copied ? (
-                    <Check className="h-4 w-4 text-[var(--accent-shock)]" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
+        <div className="flex items-stretch">
+          {shareID && (
+            <div className="flex items-stretch border-l-2 border-border">
+              <div className="flex items-center gap-2 px-4 bg-card border-r-2 border-border">
+                <span className="inline-block size-2 bg-foreground" />
+                <span className="text-xs font-bold uppercase tracking-widest">
+                  ID / {shareID}
+                </span>
               </div>
-            )}
-          </div>
-          <div className="h-full flex items-center border-l-2 border-border">
+              <Button
+                onClick={copyLink}
+                className="h-auto px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-r-2 border-border"
+                title="Copy shareable link"
+              >
+                {copied ? (
+                  <Check className="h-4 w-4 text-background" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          )}
+          <div className="flex items-stretch border-l-2 border-border">
             <ModeToggle />
           </div>
         </div>

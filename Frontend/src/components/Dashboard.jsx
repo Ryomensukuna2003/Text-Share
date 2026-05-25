@@ -105,12 +105,12 @@ const Dashboard = () => {
         } flex-col w-full md:w-1/3 lg:w-[30%] border-r-2 border-border bg-card`}
       >
         <div className="flex flex-col border-b-2 border-border">
-          <div className="border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-center justify-between">
-            <div className="p-4 md:p-6 lg:p-8 w-fit flex items-center gap-2">
-              <span className="inline-block size-2 bg-[var(--accent-shock)]" />
+          <div className="min-h-14 md:min-h-16 border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-stretch justify-between">
+            <div className="px-4 md:px-6 flex items-center gap-2">
+              <span className="inline-block size-2 bg-foreground" />
               CONTEXT ID
             </div>
-            <div className="border-l-2 border-border px-4 py-2 hidden md:block text-muted-foreground">
+            <div className="border-l-2 border-border px-4 hidden md:flex items-center text-muted-foreground">
               [INPUT]
             </div>
           </div>
@@ -119,7 +119,7 @@ const Dashboard = () => {
               type="text"
               value={customShareID}
               onChange={(e) => setCustomShareID(e.target.value)}
-              placeholder={shareID || "▸ ENTER ID"}
+              placeholder={shareID || "ENTER ID"}
               className="w-full border-none p-4 md:p-6 lg:p-8 text-lg md:text-xl lg:text-2xl bg-card text-card-foreground rounded-none focus-visible:ring-0 font-mono"
             />
             <Button
@@ -133,7 +133,7 @@ const Dashboard = () => {
 
         <div className="flex flex-col justify-between h-full">
           <div className="text-xs uppercase tracking-widest font-bold border-b-2 border-border hidden md:flex bg-card">
-            <div className="border-r-2 p-4 md:p-6 lg:p-8 border-border h-full w-fit flex items-center gap-3">
+            <div className="border-r-2 px-4 md:px-6 py-3 border-border w-fit flex items-center gap-3">
               <span className="inline-block size-2 bg-foreground" />
               {content?.length} CHARS / {content?.split("\n").length} LINES
             </div>
@@ -142,13 +142,13 @@ const Dashboard = () => {
             <>
               <div className="bg-foreground text-background px-4 py-2 border-y-2 border-border flex justify-between items-center text-xs font-bold uppercase tracking-widest">
                 <span className="flex items-center gap-2">
-                  <span className="inline-block size-2 bg-[var(--accent-shock)]" />
+                  <span className="inline-block size-2 bg-background" />
                   STATUS / LIVE
                 </span>
                 <span>ID / {shareID}</span>
               </div>
               <div className="flex items-center justify-center h-full p-4">
-                <div className="border-2 border-border brutal-shadow-static bg-background p-2">
+                <div className="border-2 border-border bg-background p-2">
                   <QRCode
                     size={256}
                     className="w-full max-w-48 md:max-w-56 lg:max-w-64"
@@ -182,19 +182,19 @@ const Dashboard = () => {
           </div>
           <div className="grid grid-cols-2 w-full mt-auto border-t-2 border-border">
             <Button
-              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-[var(--accent-shock)] text-black rounded-none hover:bg-[var(--accent-shock)] hover:brightness-95 font-bold uppercase tracking-widest text-base md:text-lg border-r-2 border-border shadow-none active:translate-y-[2px] transition-transform"
+              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r-2 border-border shadow-none active:translate-y-[2px] transition-transform"
               onClick={() =>
                 generateContext(shareID, content, setUrl, updateShareID)
               }
             >
-              {shareID && shareID != "" ? "▸ UPDATE" : "▸ CREATE"}
+              {shareID && shareID != "" ? "UPDATE" : "CREATE"}
             </Button>
 
             <div className="absolute left-1/4 bottom-11 hidden lg:block">
               <SleepingCat />
             </div>
             <Button
-              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg shadow-none active:translate-y-[2px] transition-transform"
+              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-background text-foreground rounded-none hover:bg-card font-bold uppercase tracking-widest text-base md:text-lg shadow-none active:translate-y-[2px] transition-transform"
               onClick={() => {
                 if (!shareID || shareID == "") {
                   toast("Create context first", {
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 setShared(true);
               }}
             >
-              ▸ SHARE
+              SHARE
             </Button>
           </div>
         </div>
@@ -217,31 +217,28 @@ const Dashboard = () => {
           showControls ? "md:w-2/3 lg:w-[70%]" : "w-full"
         } h-[calc(100vh-5rem)]`}
       >
-        <div className="flex justify-between border-b-2 border-border items-stretch">
+        <div className="min-h-14 md:min-h-16 flex justify-between border-b-2 border-border items-stretch">
           <Button
-            className="w-fit h-full p-3 md:p-4 py-4 md:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r-2 border-border active:translate-y-[2px] transition-transform"
+            className="w-fit h-auto px-4 md:px-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r-2 border-border active:translate-y-[2px] transition-transform"
             onClick={copytoclipboard}
           >
             {copied ? (
-              <Check className="size-4 mx-2 md:mx-4 text-[var(--accent-shock)]" />
+              <Check className="size-4 text-background" />
             ) : (
-              <Copy className="size-4 mx-2 md:mx-4" />
+              <Copy className="size-4" />
             )}
           </Button>
           <div className="flex-1 flex items-center px-4 text-xs uppercase tracking-widest font-bold text-muted-foreground">
-            ▸ EDITOR
+            EDITOR
           </div>
           <LangSelector language={language} setLanguage={setLanguage} />
         </div>
         <div className="relative w-full h-[calc(100vh-10rem)]">
           {!content && (
             <div className="absolute inset-0 p-4 md:p-6 pointer-events-none font-mono text-muted-foreground/40 uppercase tracking-wider text-xs md:text-sm leading-relaxed select-none">
-              {"// PASTE.YOUR.CODE.HERE"}
+              {"// paste your code here"}
               <br />
-              {"// OR.TYPE.SOMETHING.LOUD"}
-              <br />
-              <br />
-              {"// THEN.HIT [▸ CREATE] TO.GET.A.SHARE.ID"}
+              {"// then hit CREATE to get a share id"}
             </div>
           )}
           <div

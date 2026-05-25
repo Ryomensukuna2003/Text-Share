@@ -13,7 +13,7 @@ const Toaster = ({
       toastOptions={{
         classNames: {
           toast:
-            "!border-2 !border-border !rounded-none !shadow-[4px_4px_0_0_var(--color-border)] !font-bold !uppercase !tracking-wider !text-xs",
+            "!border-2 !border-border !rounded-none !shadow-none !font-bold !uppercase !tracking-wider !text-xs",
         },
       }}
       style={

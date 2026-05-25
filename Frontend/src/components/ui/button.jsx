@@ -22,8 +22,6 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         brutal:
           "bg-background text-foreground border-2 border-border font-bold uppercase tracking-wider brutal-shadow",
-        brutalAccent:
-          "bg-[var(--accent-shock)] text-black border-2 border-border font-bold uppercase tracking-wider brutal-shadow",
         brutalDark:
           "bg-foreground text-background border-2 border-border font-bold uppercase tracking-wider brutal-shadow",
       },
