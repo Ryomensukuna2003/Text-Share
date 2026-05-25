@@ -9,17 +9,21 @@ const Toaster = ({
   return (
     <Sonner
       theme={theme}
+      position="bottom-center"
       className="toaster group"
       toastOptions={{
+        unstyled: true,
         classNames: {
           toast:
-            "!border-2 !border-border !rounded-none !shadow-none !font-bold !uppercase !tracking-wider !text-xs",
+            "flex items-center justify-center bg-background text-foreground border-[3px] border-border rounded-none shadow-[4px_4px_0_0_var(--color-border)] font-bold uppercase tracking-widest text-sm px-8 py-4 w-auto min-w-[260px]",
+          title: "font-bold uppercase tracking-widest",
+          description: "font-bold uppercase tracking-widest opacity-80",
         },
       }}
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
+          "--normal-bg": "var(--background)",
+          "--normal-text": "var(--foreground)",
           "--normal-border": "var(--border)"
         }
       }
