@@ -21,11 +21,11 @@ const Navbar = () => {
   return (
     <header className="border-b-2 border-border bg-card">
       <div className="flex items-stretch justify-between min-h-14 md:min-h-16">
-        <div className="flex items-center gap-3 px-4">
-          <div className="flex items-center justify-center size-8 bg-foreground text-background">
-            <Code2 className="h-5 w-5" />
+        <div className="flex items-stretch">
+          <div className="flex items-center justify-center w-14 md:w-16 bg-foreground text-background border-r-2 border-border shrink-0">
+            <Code2 className="h-6 w-6 md:h-7 md:w-7" />
           </div>
-          <div className="flex flex-col leading-tight">
+          <div className="flex flex-col justify-center leading-tight px-4">
             <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground uppercase">
               CodeShare
             </h1>
