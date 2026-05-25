@@ -124,7 +124,7 @@ const Dashboard = () => {
       <div
         className={`${
           showControls ? "flex" : "hidden"
-        } flex-col w-full md:w-1/3 lg:w-[30%] border-r-2 border-border bg-card`}
+        } flex-col w-full md:w-1/3 lg:w-[30%] border-r-2 border-border bg-card overflow-hidden min-h-0`}
       >
         <div className="flex flex-col border-b-2 border-border">
           <div className="min-h-14 md:min-h-16 border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-center">
@@ -150,7 +150,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between flex-1 min-h-0">
+        <div className="flex flex-col flex-1 min-h-0">
           <div className="text-xs uppercase tracking-widest font-bold border-b-2 border-border hidden md:flex bg-card">
             <div className="border-r-2 px-4 md:px-6 py-3 border-border w-fit flex items-center gap-3">
               <span className="inline-block size-2 bg-foreground" />
@@ -180,8 +180,8 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="flex justify-start items-end px-4 md:px-6 py-4 md:py-6 border-b-2 border-border h-20 md:h-24 overflow-hidden">
-            <h1 className="text-lg md:text-xl font-light text-left text-muted-foreground leading-tight whitespace-nowrap">
+          <div className="mt-auto flex justify-start items-end px-4 md:px-6 py-4 md:py-6 border-b-2 border-border h-28 md:h-32 overflow-hidden">
+            <h1 className="text-2xl md:text-3xl font-light text-left text-muted-foreground leading-none whitespace-nowrap">
               Share your{" "}
               <AnimatedWordCycle
                 words={[
@@ -195,7 +195,7 @@ const Dashboard = () => {
                   "templates",
                 ]}
                 interval={3000}
-                className={"text-foreground font-semibold"}
+                className={"text-foreground font-bold text-3xl md:text-4xl"}
               />
             </h1>
           </div>
