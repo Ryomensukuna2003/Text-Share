@@ -35,14 +35,6 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-stretch">
-          <div className="hidden md:flex items-center gap-4 px-4 border-l-2 border-border text-xs font-bold uppercase tracking-widest">
-            <span className="flex items-center gap-2 text-foreground">
-              <span className="inline-block size-2 bg-green-500" />
-              LIVE
-            </span>
-            <span className="text-muted-foreground">V 2.1</span>
-            <span className="text-muted-foreground">NO SIGNUP</span>
-          </div>
           {shareID && (
             <div className="flex items-stretch border-l-2 border-border">
               <div className="flex items-center gap-2 px-4 bg-card">

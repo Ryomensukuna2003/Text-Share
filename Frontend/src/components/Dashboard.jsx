@@ -150,21 +150,23 @@ const Dashboard = () => {
               CONTEXT ID
             </div>
           </div>
-          {shareID && (
-            <div className="flex flex-col px-4 md:px-6 py-4 md:py-6 border-b-2 border-border gap-2">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                CURRENT SNIPPET
-              </span>
-              <span className="text-3xl md:text-4xl font-bold tracking-wider font-mono">
-                {shareID}
-              </span>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                {formatRelativeTime(snippetMeta?.createdAt) || "created just now"}
-                {" · "}
-                {snippetMeta?.lang || language}
-              </span>
-            </div>
-          )}
+          <div className="flex flex-col px-4 md:px-6 py-4 md:py-6 border-b-2 border-border gap-2">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+              CURRENT SNIPPET
+            </span>
+            <span
+              className={`text-3xl md:text-4xl font-bold tracking-wider font-mono ${
+                shareID ? "text-foreground" : "text-muted-foreground/40"
+              }`}
+            >
+              {shareID || "######"}
+            </span>
+            <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+              {shareID
+                ? `${formatRelativeTime(snippetMeta?.createdAt) || "created just now"} · ${snippetMeta?.lang || language}`
+                : `no snippet · ${language}`}
+            </span>
+          </div>
           <div className="flex">
             <input
               type="text"
