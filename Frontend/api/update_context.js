@@ -7,15 +7,18 @@ export default async function handler(req, res) {
   }
   try {
     await ensureTable();
-    const { content, shareID } = req.body ?? {};
-    if (typeof content !== "string" || shareID == null) {
+    const { content, shareID, lang } = req.body ?? {};
+    if (typeof content !== "string" || typeof shareID !== "string") {
       return res
         .status(400)
         .json({ error: "content and shareID are required" });
     }
+    const language = typeof lang === "string" ? lang : null;
     const rows = await sql`
-      UPDATE Instance
-      SET data = ${content}, updated_at = NOW()
+      UPDATE snippets
+      SET data = ${content},
+          lang = COALESCE(${language}, lang),
+          updated_at = NOW()
       WHERE id = ${shareID}
       RETURNING id
     `;

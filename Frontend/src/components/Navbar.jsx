@@ -35,9 +35,17 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-stretch">
+          <div className="hidden md:flex items-center gap-4 px-4 border-l-2 border-border text-xs font-bold uppercase tracking-widest">
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="inline-block size-2 bg-green-500" />
+              LIVE
+            </span>
+            <span className="text-muted-foreground">V 2.1</span>
+            <span className="text-muted-foreground">NO SIGNUP</span>
+          </div>
           {shareID && (
             <div className="flex items-stretch border-l-2 border-border">
-              <div className="flex items-center gap-2 px-4 bg-card border-r-2 border-border">
+              <div className="flex items-center gap-2 px-4 bg-card">
                 <span className="inline-block size-2 bg-foreground" />
                 <span className="text-xs font-bold uppercase tracking-widest">
                   ID / {shareID}
@@ -45,7 +53,7 @@ const Navbar = () => {
               </div>
               <Button
                 onClick={copyLink}
-                className="h-auto px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-r-2 border-border"
+                className="h-auto px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-l-2 border-border"
                 title="Copy shareable link"
               >
                 {copied ? (

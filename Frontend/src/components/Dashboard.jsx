@@ -12,8 +12,20 @@ import { brutalistLight, brutalistDark } from "@/lib/editor-theme";
 import { getLanguageExtension } from "@/lib/editor-langs";
 import LangSelector from "@/components/langSelector";
 import { Copy, Check, Menu, X } from "lucide-react";
-import AnimatedWordCycle from "@/components/ui/animated-text-cycle";
 import SleepingCat from "./neko";
+
+function formatRelativeTime(date) {
+  if (!date) return "";
+  const diffSec = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (diffSec < 10) return "created just now";
+  if (diffSec < 60) return `created ${diffSec}s ago`;
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `created ${diffMin}m ago`;
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return `created ${diffHr}h ago`;
+  const diffDay = Math.floor(diffHr / 24);
+  return `created ${diffDay}d ago`;
+}
 
 const Dashboard = () => {
   const { id } = useParams();
@@ -25,13 +37,17 @@ const Dashboard = () => {
   const [shared, setShared] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [snippetMeta, setSnippetMeta] = useState(null);
 
   const { theme } = useTheme();
   useEffect(() => {
     if (id) {
       setCustomShareID(id);
       updateShareID(id);
-      fetchCustomData(id, setContent);
+      fetchCustomData(id, setContent, (meta) => {
+        setSnippetMeta(meta);
+        if (meta?.lang) setLanguage(meta.lang);
+      });
     }
   }, [id]);
 
@@ -134,20 +150,59 @@ const Dashboard = () => {
               CONTEXT ID
             </div>
           </div>
+          {shareID && (
+            <div className="flex flex-col px-4 md:px-6 py-4 md:py-6 border-b-2 border-border gap-2">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+                CURRENT SNIPPET
+              </span>
+              <span className="text-3xl md:text-4xl font-bold tracking-wider font-mono">
+                {shareID}
+              </span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+                {formatRelativeTime(snippetMeta?.createdAt) || "created just now"}
+                {" · "}
+                {snippetMeta?.lang || language}
+              </span>
+            </div>
+          )}
           <div className="flex">
             <input
               type="text"
-              value={customShareID}
+              value={customShareID || ""}
               onChange={(e) => setCustomShareID(e.target.value)}
-              placeholder={shareID || "ENTER ID"}
+              placeholder="ENTER ID"
               className="w-full border-none p-4 md:p-6 lg:p-8 text-lg md:text-xl lg:text-2xl bg-card text-card-foreground rounded-none focus-visible:ring-0 font-mono"
             />
             <Button
-              onClick={() => fetchCustomData(customShareID, setContent)}
+              onClick={() =>
+                fetchCustomData(customShareID, setContent, (meta) => {
+                  setSnippetMeta(meta);
+                  updateShareID(meta.id);
+                  if (meta?.lang) setLanguage(meta.lang);
+                })
+              }
               className="px-4 h-full md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest shadow-none border-l-2 border-border active:translate-y-[2px] transition-transform"
             >
               FETCH
             </Button>
+          </div>
+          <div className="grid grid-cols-2 border-t-2 border-border">
+            <div className="flex flex-col px-4 md:px-6 py-3 border-r-2 border-border gap-1">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+                CHARS
+              </span>
+              <span className="text-xl md:text-2xl font-bold font-mono">
+                {content?.length ?? 0}
+              </span>
+            </div>
+            <div className="flex flex-col px-4 md:px-6 py-3 gap-1">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+                LINES
+              </span>
+              <span className="text-xl md:text-2xl font-bold font-mono">
+                {content?.split("\n").length ?? 1}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -175,32 +230,18 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="mt-auto flex flex-col justify-end items-start gap-1 px-4 md:px-6 py-4 md:py-6 border-b-2 border-border overflow-hidden">
-            <div className="text-xl md:text-2xl font-light text-muted-foreground leading-none">
-              Share your
-            </div>
-            <div className="font-bold leading-none whitespace-nowrap">
-              <AnimatedWordCycle
-                words={[
-                  "snippets",
-                  "code",
-                  "notes",
-                  "documentation",
-                  "ideas",
-                  "solutions",
-                  "algorithms",
-                  "templates",
-                ]}
-                interval={3000}
-                className={"text-foreground text-3xl md:text-4xl"}
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 w-full border-t-2 border-border">
+          <div className="grid grid-cols-2 w-full mt-auto border-t-2 border-border">
             <Button
               className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r-2 border-border shadow-none active:translate-y-[2px] transition-transform"
               onClick={() =>
-                generateContext(shareID, content, setUrl, updateShareID)
+                generateContext(
+                  shareID,
+                  content,
+                  setUrl,
+                  updateShareID,
+                  language,
+                  (meta) => setSnippetMeta(meta)
+                )
               }
             >
               {shareID && shareID != "" ? "UPDATE" : "CREATE"}

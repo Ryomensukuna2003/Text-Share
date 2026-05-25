@@ -7,9 +7,10 @@ let tablesInitialized = false;
 export async function ensureTable() {
   if (tablesInitialized) return;
   await sql`
-    CREATE TABLE IF NOT EXISTS Instance (
-      id SERIAL PRIMARY KEY,
+    CREATE TABLE IF NOT EXISTS snippets (
+      id TEXT PRIMARY KEY,
       data TEXT,
+      lang TEXT,
       CHECK (octet_length(data) <= 100000000),
       created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP

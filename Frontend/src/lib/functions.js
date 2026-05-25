@@ -5,56 +5,63 @@ export const generateContext = async (
   shareID,
   content,
   setUrl,
-  updateShareID
+  updateShareID,
+  language,
+  onCreated
 ) => {
   if (shareID) {
     try {
-      const response = await axios.post(`/api/update_context`, {
-        shareID: shareID,
-        content: content,
+      await axios.post(`/api/update_context`, {
+        shareID,
+        content,
+        lang: language,
       });
-      console.log(response.data);
-      toast("Context updated successfully", {
-        type: "success",
-      });
+      toast("Snippet updated", { type: "success" });
     } catch (error) {
       console.error("Error updating context:", error);
+      toast("Update failed", { type: "error" });
     }
   } else {
     try {
       const response = await axios.post(`/api/generate_context`, {
-        content: content,
+        content,
+        lang: language,
       });
-      updateShareID(response.data.id);
-      setUrl(`${window.location.origin}/share/${response.data.id}`);
-      toast("Context generated successfully", {
-        type: "success",
-      });
-      console.log(response.data.id);
+      const { id, createdAt } = response.data;
+      updateShareID(id);
+      setUrl(`${window.location.origin}/share/${id}`);
+      onCreated?.({ id, createdAt, lang: language });
+      toast("New snippet created", { type: "success" });
     } catch (error) {
       console.error("Error generating context:", error);
+      toast("Create failed", { type: "error" });
     }
   }
 };
 
-export const fetchCustomData = async (customShareID, setContent) => {
+export const fetchCustomData = async (
+  customShareID,
+  setContent,
+  onLoaded
+) => {
   try {
     const response = await axios.get(`/api/share/${customShareID}`);
-    console.log(response.data);
-    if (response.data) {
-      setContent(response.data);
-      toast("Content fetched successfully", {
-        type: "success",
+    const payload = response.data;
+    const data = typeof payload === "string" ? payload : payload?.data;
+    if (data != null) {
+      setContent(data);
+      onLoaded?.({
+        id: customShareID,
+        lang: payload?.lang,
+        createdAt: payload?.createdAt,
+        updatedAt: payload?.updatedAt,
       });
+      toast("Snippet loaded", { type: "success" });
     } else {
-      toast("Data can't be fetched", {
-        type: "error",
-      });
+      toast("Empty snippet", { type: "error" });
     }
   } catch (error) {
     console.error("Error fetching data:", error);
-    toast("No content found for this share ID", {
-      type: "error",
-    });
+    toast("No snippet for this id", { type: "error" });
   }
 };
