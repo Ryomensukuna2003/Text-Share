@@ -77,9 +77,10 @@ const Dashboard = () => {
         "&": { height: "100%" },
         ".cm-scroller": { fontFamily: "Necto, monospace" },
         ".cm-gutters": {
-          borderRight: "2px solid var(--border)",
+          border: "none",
           backgroundColor: "var(--card)",
         },
+        ".cm-activeLine": { backgroundColor: "transparent" },
         ".cm-activeLineGutter": {
           backgroundColor: "transparent",
           fontWeight: "700",
@@ -201,7 +202,7 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 w-full mt-auto border-t-2 border-border">
+          <div className="grid grid-cols-2 w-full border-t-2 border-border">
             <Button
               className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r-2 border-border shadow-none active:translate-y-[2px] transition-transform"
               onClick={() =>
@@ -240,7 +241,7 @@ const Dashboard = () => {
       >
         <div className="min-h-14 md:min-h-16 flex justify-between border-b-2 border-border items-stretch">
           <Button
-            className="w-fit h-auto px-4 md:px-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r-2 border-border active:translate-y-[2px] transition-transform"
+            className="size-14 md:size-16 shrink-0 p-0 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r-2 border-border active:translate-y-[2px] transition-transform flex items-center justify-center"
             onClick={copytoclipboard}
           >
             {copied ? (
@@ -265,9 +266,9 @@ const Dashboard = () => {
             placeholder={"// paste your code here\n// then hit CREATE to get a share id"}
             basicSetup={{
               lineNumbers: true,
-              foldGutter: true,
-              highlightActiveLine: true,
-              highlightActiveLineGutter: true,
+              foldGutter: false,
+              highlightActiveLine: false,
+              highlightActiveLineGutter: false,
               bracketMatching: true,
               closeBrackets: true,
               indentOnInput: true,
