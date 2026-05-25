@@ -232,7 +232,7 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="grid grid-cols-2 w-full mt-auto border-t border-border">
+          <div className="relative grid grid-cols-2 w-full mt-auto border-t border-border overflow-visible">
             <Button
               className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r border-border shadow-none active:translate-y-[2px] transition-transform"
               onClick={() =>
@@ -249,23 +249,25 @@ const Dashboard = () => {
               {shareID && shareID != "" ? "UPDATE" : "CREATE"}
             </Button>
 
-            <div className="absolute left-1/4 bottom-11 hidden lg:block">
-              <SleepingCat />
+            <div className="relative overflow-visible">
+              <div className="absolute top-0 left-2/3 -translate-x-1/2 -translate-y-1/2 z-20">
+                <SleepingCat className="sleeping-cat" />
+              </div>
+              <Button
+                className="h-full w-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-background text-foreground rounded-none hover:bg-card font-bold uppercase tracking-widest text-base md:text-lg shadow-none active:translate-y-[2px] transition-transform"
+                onClick={() => {
+                  if (!shareID || shareID == "") {
+                    toast("Create context first", {
+                      type: "error",
+                    });
+                    return;
+                  }
+                  setShared(true);
+                }}
+              >
+                SHARE
+              </Button>
             </div>
-            <Button
-              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-background text-foreground rounded-none hover:bg-card font-bold uppercase tracking-widest text-base md:text-lg shadow-none active:translate-y-[2px] transition-transform"
-              onClick={() => {
-                if (!shareID || shareID == "") {
-                  toast("Create context first", {
-                    type: "error",
-                  });
-                  return;
-                }
-                setShared(true);
-              }}
-            >
-              SHARE
-            </Button>
           </div>
         </div>
       </div>

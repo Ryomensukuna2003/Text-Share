@@ -171,8 +171,9 @@
       format("opentype");
 }
 
-#oneko {
-  z-index: 100;
+#oneko,
+.sleeping-cat {
+  z-index: 20;
 }
 
 @keyframes sleepingCat {
