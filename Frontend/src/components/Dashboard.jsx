@@ -117,7 +117,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col md:flex-row flex-1 min-h-0">
       {/* Mobile toggle button */}
-      <div className="md:hidden flex justify-between items-center border-b-2 border-border p-2">
+      <div className="md:hidden flex justify-between items-center border-b border-border p-2">
         <Button
           variant="brutal"
           onClick={toggleControls}
@@ -141,16 +141,16 @@ const Dashboard = () => {
       <div
         className={`${
           showControls ? "flex" : "hidden"
-        } flex-col w-full md:w-1/3 lg:w-[30%] border-r-2 border-border bg-card overflow-hidden min-h-0`}
+        } flex-col w-full md:w-1/3 lg:w-[30%] border-r border-border bg-card overflow-hidden min-h-0`}
       >
-        <div className="flex flex-col border-b-2 border-border">
-          <div className="min-h-14 md:min-h-16 border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-center">
+        <div className="flex flex-col border-b border-border">
+          <div className="min-h-14 md:min-h-16 border-b border-border uppercase font-bold tracking-widest text-xs flex items-center">
             <div className="px-4 md:px-6 flex items-center gap-2">
               <span className="inline-block size-2 bg-foreground" />
               CONTEXT ID
             </div>
           </div>
-          <div className="flex flex-col px-4 md:px-6 py-4 md:py-6 border-b-2 border-border gap-2">
+          <div className="flex flex-col px-4 md:px-6 py-4 md:py-6 border-b border-border gap-2">
             <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
               CURRENT SNIPPET
             </span>
@@ -183,13 +183,13 @@ const Dashboard = () => {
                   if (meta?.lang) setLanguage(meta.lang);
                 })
               }
-              className="px-4 h-full md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest shadow-none border-l-2 border-border active:translate-y-[2px] transition-transform"
+              className="px-4 h-full md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest shadow-none border-l border-border active:translate-y-[2px] transition-transform"
             >
               FETCH
             </Button>
           </div>
-          <div className="grid grid-cols-2 border-t-2 border-border">
-            <div className="flex flex-col px-4 md:px-6 py-3 border-r-2 border-border gap-1">
+          <div className="grid grid-cols-2 border-t border-border">
+            <div className="flex flex-col px-4 md:px-6 py-3 border-r border-border gap-1">
               <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
                 CHARS
               </span>
@@ -211,7 +211,7 @@ const Dashboard = () => {
         <div className="flex flex-col flex-1 min-h-0">
           {shared && shareID && shareID != "" && (
             <>
-              <div className="bg-foreground text-background px-4 py-2 border-y-2 border-border flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+              <div className="bg-foreground text-background px-4 py-2 border-y border-border flex justify-between items-center text-xs font-bold uppercase tracking-widest">
                 <span className="flex items-center gap-2">
                   <span className="inline-block size-2 bg-background" />
                   STATUS / LIVE
@@ -219,7 +219,7 @@ const Dashboard = () => {
                 <span>ID / {shareID}</span>
               </div>
               <div className="flex items-center justify-center h-full p-4">
-                <div className="border-2 border-border bg-background p-2">
+                <div className="border border-border bg-background p-2">
                   <QRCode
                     size={256}
                     className="w-full max-w-48 md:max-w-56 lg:max-w-64"
@@ -232,9 +232,9 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="grid grid-cols-2 w-full mt-auto border-t-2 border-border">
+          <div className="grid grid-cols-2 w-full mt-auto border-t border-border">
             <Button
-              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r-2 border-border shadow-none active:translate-y-[2px] transition-transform"
+              className="h-full px-4 md:px-6 lg:px-8 py-5 md:py-5 lg:py-6 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 font-bold uppercase tracking-widest text-base md:text-lg border-r border-border shadow-none active:translate-y-[2px] transition-transform"
               onClick={() =>
                 generateContext(
                   shareID,
@@ -276,9 +276,9 @@ const Dashboard = () => {
           showControls ? "md:w-2/3 lg:w-[70%]" : "w-full"
         } flex flex-col min-h-0`}
       >
-        <div className="min-h-14 md:min-h-16 flex justify-between border-b-2 border-border items-stretch">
+        <div className="min-h-14 md:min-h-16 flex justify-between border-b border-border items-stretch">
           <Button
-            className="size-14 md:size-16 shrink-0 p-0 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r-2 border-border active:translate-y-[2px] transition-transform flex items-center justify-center"
+            className="size-14 md:size-16 shrink-0 p-0 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none border-r border-border active:translate-y-[2px] transition-transform flex items-center justify-center"
             onClick={copytoclipboard}
           >
             {copied ? (

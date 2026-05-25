@@ -19,10 +19,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="border-b-2 border-border bg-card">
+    <header className="border-b border-border bg-card">
       <div className="flex items-stretch justify-between min-h-14 md:min-h-16">
         <div className="flex items-stretch">
-          <div className="flex items-center justify-center w-14 md:w-16 bg-foreground text-background border-r-2 border-border shrink-0">
+          <div className="flex items-center justify-center w-14 md:w-16 bg-foreground text-background border-r border-border shrink-0">
             <Code2 className="h-6 w-6 md:h-7 md:w-7" />
           </div>
           <div className="flex flex-col justify-center leading-tight px-4">
@@ -36,7 +36,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-stretch">
           {shareID && (
-            <div className="flex items-stretch border-l-2 border-border">
+            <div className="flex items-stretch border-l border-border">
               <div className="flex items-center gap-2 px-4 bg-card">
                 <span className="inline-block size-2 bg-foreground" />
                 <span className="text-xs font-bold uppercase tracking-widest">
@@ -45,7 +45,7 @@ const Navbar = () => {
               </div>
               <Button
                 onClick={copyLink}
-                className="h-auto px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-l-2 border-border"
+                className="h-auto px-4 bg-foreground text-background rounded-none hover:bg-foreground hover:brightness-110 shadow-none active:translate-y-[2px] transition-transform border-l border-border"
                 title="Copy shareable link"
               >
                 {copied ? (
@@ -56,7 +56,7 @@ const Navbar = () => {
               </Button>
             </div>
           )}
-          <div className="flex items-stretch border-l-2 border-border">
+          <div className="flex items-stretch border-l border-border">
             <ModeToggle />
           </div>
         </div>
