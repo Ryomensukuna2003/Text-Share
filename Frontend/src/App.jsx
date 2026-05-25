@@ -8,7 +8,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <RootLayout>
-        <div className="min-h-screen">
+        <div className="h-screen flex flex-col overflow-hidden">
           <Navbar />
           <Dashboard />
         </div>
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     path: "/share/:id",
     element: (
       <RootLayout>
-        <div className="min-h-screen">
+        <div className="h-screen flex flex-col overflow-hidden">
           <Navbar />
           <Dashboard />
         </div>

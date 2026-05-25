@@ -98,7 +98,7 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row h-full">
+    <div className="flex flex-col md:flex-row flex-1 min-h-0">
       {/* Mobile toggle button */}
       <div className="md:hidden flex justify-between items-center border-b-2 border-border p-2">
         <Button
@@ -127,13 +127,10 @@ const Dashboard = () => {
         } flex-col w-full md:w-1/3 lg:w-[30%] border-r-2 border-border bg-card`}
       >
         <div className="flex flex-col border-b-2 border-border">
-          <div className="min-h-14 md:min-h-16 border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-stretch justify-between">
+          <div className="min-h-14 md:min-h-16 border-b-2 border-border uppercase font-bold tracking-widest text-xs flex items-center">
             <div className="px-4 md:px-6 flex items-center gap-2">
               <span className="inline-block size-2 bg-foreground" />
               CONTEXT ID
-            </div>
-            <div className="border-l-2 border-border px-4 hidden md:flex items-center text-muted-foreground">
-              [INPUT]
             </div>
           </div>
           <div className="flex">
@@ -153,7 +150,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between flex-1 min-h-0">
           <div className="text-xs uppercase tracking-widest font-bold border-b-2 border-border hidden md:flex bg-card">
             <div className="border-r-2 px-4 md:px-6 py-3 border-border w-fit flex items-center gap-3">
               <span className="inline-block size-2 bg-foreground" />
@@ -183,8 +180,8 @@ const Dashboard = () => {
               </div>
             </>
           )}
-          <div className="flex justify-between items-center p-4 md:p-6 lg:p-8 border-b-2 border-border">
-            <h1 className="text-xl md:text-2xl lg:text-4xl font-light text-left text-muted-foreground">
+          <div className="flex justify-start items-end px-4 md:px-6 py-4 md:py-6 border-b-2 border-border h-20 md:h-24 overflow-hidden">
+            <h1 className="text-lg md:text-xl font-light text-left text-muted-foreground leading-tight whitespace-nowrap">
               Share your{" "}
               <AnimatedWordCycle
                 words={[
@@ -198,7 +195,7 @@ const Dashboard = () => {
                   "templates",
                 ]}
                 interval={3000}
-                className={"text-foreground font-semi-bold"}
+                className={"text-foreground font-semibold"}
               />
             </h1>
           </div>
@@ -237,7 +234,7 @@ const Dashboard = () => {
       <div
         className={`w-full ${
           showControls ? "md:w-2/3 lg:w-[70%]" : "w-full"
-        } h-[calc(100vh-5rem)]`}
+        } flex flex-col min-h-0`}
       >
         <div className="min-h-14 md:min-h-16 flex justify-between border-b-2 border-border items-stretch">
           <Button
@@ -255,7 +252,7 @@ const Dashboard = () => {
           </div>
           <LangSelector language={language} setLanguage={setLanguage} />
         </div>
-        <div className="w-full h-[calc(100vh-10rem)] overflow-hidden bg-background">
+        <div className="w-full flex-1 min-h-0 overflow-hidden bg-background">
           <CodeMirror
             value={content}
             onChange={(value) => setContent(value)}
