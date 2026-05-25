@@ -152,12 +152,6 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col flex-1 min-h-0">
-          <div className="text-xs uppercase tracking-widest font-bold border-b-2 border-border hidden md:flex bg-card">
-            <div className="border-r-2 px-4 md:px-6 py-3 border-border w-fit flex items-center gap-3">
-              <span className="inline-block size-2 bg-foreground" />
-              {content?.length} CHARS / {content?.split("\n").length} LINES
-            </div>
-          </div>
           {shared && shareID && shareID != "" && (
             <>
               <div className="bg-foreground text-background px-4 py-2 border-y-2 border-border flex justify-between items-center text-xs font-bold uppercase tracking-widest">
@@ -250,8 +244,9 @@ const Dashboard = () => {
               <Copy className="size-4" />
             )}
           </Button>
-          <div className="flex-1 flex items-center px-4 text-xs uppercase tracking-widest font-bold text-muted-foreground">
-            EDITOR
+          <div className="flex-1 flex items-center justify-end px-4 text-xs uppercase tracking-widest font-bold text-muted-foreground gap-2">
+            <span className="inline-block size-2 bg-foreground" />
+            {content?.length} CHARS / {content?.split("\n").length} LINES
           </div>
           <LangSelector language={language} setLanguage={setLanguage} />
         </div>
