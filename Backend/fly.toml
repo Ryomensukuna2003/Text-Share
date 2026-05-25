@@ -1,0 +1,33 @@
+# Generated for Text-Share backend.
+# Run `fly launch --no-deploy` if you want Fly to regenerate this,
+# otherwise edit `app` below to your unique app name and `fly deploy`.
+
+app = "text-share-api"
+primary_region = "bom" # Mumbai
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256

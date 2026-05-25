@@ -8,8 +8,10 @@ export const pool = new Pool({
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.DB_PORT,
-  // Add these options to help with troubleshooting
-  ssl: false,
+  ssl:
+    process.env.NODE_ENV === "production" || process.env.PGSSL === "true"
+      ? { rejectUnauthorized: false }
+      : false,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
