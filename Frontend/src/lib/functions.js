@@ -1,6 +1,5 @@
 import axios from "axios";
 import { toast } from "sonner";
-const baseUrl = import.meta.env.VITE_APP_URL;
 
 export const generateContext = async (
   shareID,
@@ -8,10 +7,9 @@ export const generateContext = async (
   setUrl,
   updateShareID
 ) => {
-  console.log("base-> " + baseUrl);
   if (shareID) {
     try {
-      const response = await axios.post(`${baseUrl}/update_context`, {
+      const response = await axios.post(`/api/update_context`, {
         shareID: shareID,
         content: content,
       });
@@ -24,11 +22,11 @@ export const generateContext = async (
     }
   } else {
     try {
-      const response = await axios.post(`${baseUrl}/generate_context`, {
+      const response = await axios.post(`/api/generate_context`, {
         content: content,
       });
       updateShareID(response.data.id);
-      setUrl(`${baseUrl}/share/${response.data.id}`);
+      setUrl(`${window.location.origin}/share/${response.data.id}`);
       toast("Context generated successfully", {
         type: "success",
       });
@@ -41,7 +39,7 @@ export const generateContext = async (
 
 export const fetchCustomData = async (customShareID, setContent) => {
   try {
-    const response = await axios.get(`${baseUrl}/share/${customShareID}`);
+    const response = await axios.get(`/api/share/${customShareID}`);
     console.log(response.data);
     if (response.data) {
       setContent(response.data);

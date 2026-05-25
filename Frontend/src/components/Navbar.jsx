@@ -10,8 +10,7 @@ const Navbar = () => {
   const [copied, setCopied] = useState(false);
 
   const copyLink = async () => {
-    const baseUrl = import.meta.env.VITE_APP_URL;
-    const url = `${baseUrl}/${shareID}`;
+    const url = `${window.location.origin}/share/${shareID}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => {
